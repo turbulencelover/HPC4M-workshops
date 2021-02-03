@@ -10,7 +10,7 @@ int main(int argc, char* argv[]){
   constexpr int N = 7;  // matrix dimension
   constexpr int nproc = 4;  // number of cores/processors
   // the number of rows in matrix A given to each process
-  constexpr int row_size = N/nproc+1;
+  constexpr int row_size = N/nproc+(N%nproc!=0);
   // Augmneting a number of rows to A
   // (which will be junk but they will make our programming easier)
   constexpr int Nplus = row_size*nproc; 
@@ -42,6 +42,7 @@ int main(int argc, char* argv[]){
 
 // Create matrix B in process 0
   if (rank == 0){
+    cout<<"row_size =" << row_size << endl;	  
     cout<<"Matrix B: "<<endl;	
     for(int i=0; i<N; ++i){
       for(int j=0; j<N; ++j){
